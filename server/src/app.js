@@ -22,6 +22,9 @@ const path = require('path');
 
 const app = express();
 
+// Trust proxy for Railway/Production (Required for rate limiting)
+app.set('trust proxy', 1);
+
 // Middleware
 app.use(helmet({
   contentSecurityPolicy: false, // Disable for easier deployment, adjust for production if needed
