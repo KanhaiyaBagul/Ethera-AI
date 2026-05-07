@@ -70,8 +70,17 @@ if (process.env.NODE_ENV === 'production') {
 
 // Global Error Handler
 app.use((err, req, res, next) => {
-  console.error(err.stack);
-  res.status(err.status || 500).json({ success: false, message: err.message || 'Internal Server Error' });
+  // Log the full error to Railway console for debugging
+  console.error('--- SERVER ERROR ---');
+  console.error('Path:', req.path);
+  console.error('Message:', err.message);
+  console.error('Stack:', err.stack);
+  console.error('--------------------');
+
+  res.status(err.status || 500).json({ 
+    success: false, 
+    message: process.env.NODE_ENV === 'production' ? 'Internal Server Error' : err.message 
+  });
 });
 
 module.exports = app;
