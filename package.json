@@ -7,7 +7,7 @@
     "dev": "concurrently \"npm run dev:frontend\" \"npm run dev:backend\"",
     "dev:frontend": "vite",
     "dev:backend": "nodemon --cwd server src/server.js",
-    "build": "vite build && cd server && npx prisma generate",
+    "build": "vite build && cd server && npm run db:generate",
     "start": "NODE_ENV=production node server/src/server.js",
     "lint": "eslint .",
     "preview": "vite preview",
