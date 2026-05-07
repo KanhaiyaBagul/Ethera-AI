@@ -1,0 +1,92 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* ── Dark Mode Variables ─────────────────────────────────────────────────── */
+[data-theme="dark"] {
+  --color-background: #0F1117;
+  --color-surface: #1A1D2E;
+  --color-border: #2D3148;
+  --color-text-primary: #F1F5F9;
+  --color-text-muted: #94A3B8;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-text_primary font-body m-0 p-0 antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading text-text_primary font-bold;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-border rounded-full;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-text_muted/30;
+  }
+}
+
+@layer components {
+  /* Primary CTA — dark pill with lime arrow (like reference "GET STARTED") */
+  .btn-primary {
+    @apply bg-dark text-white font-semibold py-2.5 px-6 rounded-full transition-all duration-200 
+           hover:bg-dark/80 focus:outline-none focus:ring-2 focus:ring-dark focus:ring-offset-2
+           flex items-center gap-2 tracking-wide text-sm uppercase;
+  }
+
+  /* Accent CTA — lime green (like reference pill buttons) */
+  .btn-accent {
+    @apply bg-accent text-dark font-semibold py-2.5 px-6 rounded-full transition-all duration-200
+           hover:bg-accent_hover focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2
+           flex items-center gap-2 tracking-wide text-sm uppercase;
+  }
+
+  /* Secondary ghost button */
+  .btn-secondary {
+    @apply bg-surface border border-border hover:border-dark text-text_primary font-medium py-2.5 px-5
+           rounded-full transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-border text-sm;
+  }
+
+  .btn-danger {
+    @apply bg-danger/10 text-danger hover:bg-danger hover:text-white font-medium py-2 px-4 rounded-full transition-colors duration-200;
+  }
+
+  .input-field {
+    @apply w-full bg-background border border-border rounded-xl px-4 py-3 text-text_primary 
+           placeholder-text_muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-primary/20
+           transition-all text-sm;
+  }
+
+  /* Card — white with subtle shadow and large radius (reference style) */
+  .card {
+    @apply bg-surface border border-border rounded-2xl shadow-card;
+  }
+
+  /* Icon badge — lime green square (reference feature icon style) */
+  .icon-badge {
+    @apply w-10 h-10 rounded-xl bg-accent flex items-center justify-center text-dark flex-shrink-0;
+  }
+
+  /* Stat card accent — for the colored dashboard cards */
+  .stat-card-blue {
+    @apply bg-primary text-white rounded-2xl p-5 shadow-card;
+  }
+  .stat-card-lime {
+    @apply bg-accent text-dark rounded-2xl p-5 shadow-card;
+  }
+  .stat-card-dark {
+    @apply bg-dark text-white rounded-2xl p-5 shadow-card;
+  }
+}

@@ -1,0 +1,140 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String            @id @default(uuid())
+  name            String
+  email           String            @unique
+  password        String
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  comments        Comment[]
+  notifications   Notification[]
+  createdProjects Project[]         @relation("CreatedProjects")
+  ProjectMembers  ProjectMember[]
+  templates       ProjectTemplate[]
+  assignedTasks   Task[]            @relation("AssignedTasks")
+  createdTasks    Task[]            @relation("CreatedTasks")
+  attachments     TaskAttachment[]
+}
+
+model Project {
+  id          String              @id @default(uuid())
+  name        String
+  description String?
+  createdById String
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  createdBy   User                @relation("CreatedProjects", fields: [createdById], references: [id])
+  invitations ProjectInvitation[]
+  members     ProjectMember[]
+  tasks       Task[]
+}
+
+model ProjectMember {
+  id        String   @id @default(uuid())
+  userId    String
+  projectId String
+  role      String   @default("MEMBER")
+  joinedAt  DateTime @default(now())
+  project   Project  @relation(fields: [projectId], references: [id])
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, projectId])
+}
+
+model Task {
+  id           String           @id @default(uuid())
+  title        String
+  description  String?
+  status       String           @default("TODO")
+  priority     String           @default("MEDIUM")
+  dueDate      DateTime?
+  projectId    String
+  assignedToId String?
+  createdById  String
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  checklists   ChecklistItem[]
+  comments     Comment[]
+  assignedTo   User?            @relation("AssignedTasks", fields: [assignedToId], references: [id])
+  createdBy    User             @relation("CreatedTasks", fields: [createdById], references: [id])
+  project      Project          @relation(fields: [projectId], references: [id])
+  attachments  TaskAttachment[]
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  taskId    String
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  task      Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id])
+}
+
+model ChecklistItem {
+  id          String   @id @default(uuid())
+  title       String
+  isCompleted Boolean  @default(false)
+  taskId      String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  task        Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+}
+
+model Notification {
+  id        String   @id @default(uuid())
+  userId    String
+  type      String
+  title     String
+  message   String
+  link      String?
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model TaskAttachment {
+  id           String   @id @default(uuid())
+  taskId       String
+  uploadedById String
+  fileName     String
+  fileUrl      String
+  fileSize     Int
+  mimeType     String
+  createdAt    DateTime @default(now())
+  task         Task     @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  uploadedBy   User     @relation(fields: [uploadedById], references: [id])
+}
+
+model ProjectInvitation {
+  id        String   @id @default(uuid())
+  projectId String
+  email     String
+  token     String   @unique
+  role      String   @default("MEMBER")
+  status    String   @default("PENDING")
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  project   Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, email])
+}
+
+model ProjectTemplate {
+  id          String   @id @default(uuid())
+  name        String
+  description String?
+  createdById String
+  tasks       Json
+  createdAt   DateTime @default(now())
+  createdBy   User     @relation(fields: [createdById], references: [id])
+}

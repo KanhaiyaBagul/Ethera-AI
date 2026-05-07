@@ -1,0 +1,48 @@
+{
+  "project": "Team Task Manager",
+  "phases": [
+    {
+      "phase": "Phase 1: Backend Setup",
+      "status": "in_progress",
+      "steps": [
+        { "id": "b1", "description": "Init Node project + install deps", "status": "pending" },
+        { "id": "b2", "description": "Setup Prisma + connect local SQLite (for dev)", "status": "pending" },
+        { "id": "b3", "description": "Write schema.prisma + run db push", "status": "pending" },
+        { "id": "b4", "description": "Build auth routes (signup/login/me)", "status": "pending" },
+        { "id": "b5", "description": "Build project CRUD routes", "status": "pending" },
+        { "id": "b6", "description": "Build member management routes", "status": "pending" },
+        { "id": "b7", "description": "Build task CRUD + status patch routes", "status": "pending" },
+        { "id": "b8", "description": "Build dashboard summary route", "status": "pending" },
+        { "id": "b9", "description": "Test all routes", "status": "pending" }
+      ]
+    },
+    {
+      "phase": "Phase 2: Frontend Setup",
+      "status": "pending",
+      "steps": [
+        { "id": "f1", "description": "Init Vite React + install Tailwind", "status": "pending" },
+        { "id": "f2", "description": "Setup Axios config + interceptors (attach JWT)", "status": "pending" },
+        { "id": "f3", "description": "Build AuthContext (login/logout/persist token)", "status": "pending" },
+        { "id": "f4", "description": "Build Login + Signup pages", "status": "pending" },
+        { "id": "f5", "description": "Build Sidebar + layout shell", "status": "pending" },
+        { "id": "f6", "description": "Build Dashboard page + charts", "status": "pending" },
+        { "id": "f7", "description": "Build Projects list + create modal", "status": "pending" },
+        { "id": "f8", "description": "Build Project detail + task board", "status": "pending" },
+        { "id": "f9", "description": "Build task create/edit/delete (admin)", "status": "pending" },
+        { "id": "f10", "description": "Build status update (member)", "status": "pending" },
+        { "id": "f11", "description": "Add role-based UI conditionals", "status": "pending" },
+        { "id": "f12", "description": "Add loading states + error toasts", "status": "pending" }
+      ]
+    },
+    {
+      "phase": "Phase 3: Polish & Deploy",
+      "status": "pending",
+      "steps": [
+        { "id": "p1", "description": "Test full flow", "status": "pending" },
+        { "id": "p2", "description": "Test role restrictions", "status": "pending" },
+        { "id": "p3", "description": "Mobile responsive check", "status": "pending" },
+        { "id": "p4", "description": "Prepare deployment configuration", "status": "pending" }
+      ]
+    }
+  ]
+}
