@@ -28,6 +28,7 @@
   },
   "devDependencies": {
     "nodemon": "^3.0.1",
+    "picomatch": "^4.0.4",
     "prisma": "^5.0.0"
   }
 }
